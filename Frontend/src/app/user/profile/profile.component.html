@@ -1,0 +1,305 @@
+<div class="navg"></div>
+<section class="ftco-section ftco-car-details ">
+<div class="container">
+<div class="row">
+    <div class="col-xl-8">
+        <div class="card">
+            <div class="card-body pb-0">
+                <div class="row align-items-center">
+                    <div class="col-md-3">
+                        <div class="text-center mb-2">
+
+                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-fluid avatar-xxl rounded-circle" alt="">
+                            <h4 class="text-primary  mt-3 mb-2">{{ userDetails?.user.nom }} {{ userDetails?.user.prenom }}</h4>
+                            <h5 class="text-muted  mb-0">{{ userDetails?.user.role | titlecase }}</h5>
+                        </div>
+                    </div><!-- end col -->
+
+                    <div class="col-md-9">
+                        <div class="ms-3">
+
+                            
+                            <div class="row my-4">
+                                <div class="col-md-12">
+                                    <div>
+                                        <p class="text-muted mb-2 fw-medium"><i class="mdi mdi-email-outline me-2"></i>{{ userDetails?.user.email }}
+                                        </p>
+                                        <p class="text-muted fw-medium mb-0"><i class="mdi mdi-phone-in-talk-outline me-2"></i>{{ userDetails?.user.numero_de_telephone }}
+                                        </p>
+                                    </div>
+                                </div><!-- end col -->
+                            </div><!-- end row -->
+
+                            <ul class="nav nav-tabs nav-tabs-custom border-bottom-0 mt-3 nav-justfied" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link px-4 active"  [ngClass]="{ 'active': activeTab === 'Hist' }" (click)="showTab('Hist')">
+                                        <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                                        <span class="d-none d-sm-block">Historique</span>
+                                    </a>
+                                </li><!-- end li -->
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link px-4"   [ngClass]="{ 'active': activeTab === 'Edit' }" (click)="showTab('Edit')" >
+                                        <span class="d-block d-sm-none"><i class="mdi mdi-menu-open"></i></span>
+                                        <span class="d-none d-sm-block">Edit Profil</span>
+                                    </a>
+                                </li><!-- end li -->
+
+                            </ul><!-- end ul -->
+                        </div>
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div><!-- end card body -->
+        </div><!-- end card -->
+
+        <div class="card">
+            <div class="tab-content p-4">
+                <div class="tab-pane active show" *ngIf="activeTab === 'Hist'">
+                    <div class="d-flex align-items-center">
+                      <div class="flex-1">
+                        <h4 class="card-title mb-4">Reservations</h4>
+                      </div>
+                    </div>
+              
+                    <div class="row" id="all-reservations">
+                      <div class="col-md-6" *ngFor="let reservation of reservations" [id]="'reservation-' + reservation.reservation_id">
+                        <div class="card">
+                          <div class="card-body">
+                            <div class="d-flex mb-3">
+                              <div class="flex-grow-1 align-items-start">
+                                <div>
+                                  <h6 class="mb-0 text-muted">
+                                    <i class="mdi mdi-circle-medium text-success fs-3 align-middle"></i>
+                                    <span class="reservation-date">{{ reservation.date_debut | date: 'dd MMM, yyyy' }}</span> to 
+                                    <span class="reservation-date">{{ reservation.date_fin | date: 'dd MMM, yyyy' }}</span>
+                                  </h6>
+                                </div>
+                              </div>
+                            </div>
+              
+                            <div class="mb-4">
+                              <h5 class="mb-1 font-size-17 reservation-title">Reservation #{{ reservation.reservation_id }}</h5>
+                              <p class="text-muted mb-0">{{ reservation.avis }}</p>
+                            </div>
+                            <div class="d-flex">
+                              <div class="avatar-group float-start flex-grow-1 reservation-assigne">
+                                <!-- Add logic for assigning avatars if applicable -->
+                              </div>
+                              <div class="align-self-end">
+                                <span class="badge badge-soft-success p-2 reservation-status">{{ reservation.statut ? 'Confirmed' : 'Pending' }}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div> <!-- end row -->
+                  </div>
+
+
+
+
+
+<!--Tasks-->
+
+<div class="tab-pane active show" *ngIf="activeTab === 'Edit'">
+    <div class="card-body">
+      <div class="row gutters">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <h6 class="mb-2 text-primary">Personal Details</h6>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="firstName"
+              [(ngModel)]="userDetails.nom"
+              placeholder="Enter first name"
+            />
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lastName"
+              [(ngModel)]="userDetails.prenom"
+              placeholder="Enter last name"
+            />
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              [(ngModel)]="userDetails.email"
+              placeholder="Enter email ID"
+            />
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input
+              type="text"
+              class="form-control"
+              id="phone"
+              [(ngModel)]="userDetails.numero_de_telephone"
+              placeholder="Enter phone number"
+            />
+          </div>
+        </div>
+      </div>
+  
+      <div class="row gutters">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <h6 class="mt-3 mb-2 text-primary">Address</h6>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+          <div class="form-group">
+            <label for="street">Street</label>
+            <input
+              type="text"
+              class="form-control"
+              id="street"
+              [(ngModel)]="adresseParts.street"
+              (ngModelChange)="updateAdresse()"
+              placeholder="Enter Street"
+            />
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+          <div class="form-group">
+            <label for="city">City</label>
+            <input
+              type="text"
+              class="form-control"
+              id="city"
+              [(ngModel)]="adresseParts.city"
+              (ngModelChange)="updateAdresse()"
+              placeholder="Enter City"
+            />
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+          <div class="form-group">
+            <label for="state">State</label>
+            <input
+              type="text"
+              class="form-control"
+              id="state"
+              [(ngModel)]="adresseParts.state"
+              (ngModelChange)="updateAdresse()"
+              placeholder="Enter State"
+            />
+          </div>
+        </div>
+      </div>
+      
+  
+      <div class="row gutters">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <div class="text-right">
+            <button type="button" class="btn btn-secondary">Cancel</button>
+            <div style="height: 20px;"></div>
+            <button type="button" class="btn btn-primary" (click)="updateUser()">Update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+<!--Deposit-->
+
+<div class="tab-pane active show" *ngIf="activeTab === 'Dep'">
+  <h2 class="title">Billing</h2>
+  <div class="containerpay">
+    <form action="">
+        <div class="row">
+            <div class="column">
+                <h3 class="title">Billing Address</h3>
+                <div class="input-box">
+                    <span>Full Name :</span>
+                    <input type="text" placeholder="Jacob Aiden">
+                </div>
+                <div class="input-box">
+                    <span>Email :</span>
+                    <input type="email" placeholder="example@example.com">
+                </div>
+                <div class="input-box">
+                    <span>Address :</span>
+                    <input type="text" placeholder="Room - Street - Locality">
+                </div>
+                <div class="input-box">
+                    <span>City :</span>
+                    <input type="text" placeholder="Berlin">
+                </div>
+
+                <div class="flex">
+                    <div class="input-box">
+                        <span>State :</span>
+                        <input type="text" placeholder="Germany">
+                    </div>
+                    <div class="input-box">
+                        <span>Zip Code :</span>
+                        <input type="number" placeholder="123 456">
+                    </div>
+                </div>
+            </div>
+
+            <div class="column">
+                <h3 class="title">Payment</h3>
+                <div class="input-box">
+                    <span>Cards Accepted :</span>
+                    <img src="assets/images/imgcards.png" alt="">
+                </div>
+                <div class="input-box">
+                    <span>Name On Card :</span>
+                    <input type="text" placeholder="Mr. Jacob Aiden">
+                </div>
+                <div class="input-box">
+                    <span>Credit Card Number :</span>
+                    <input type="number" placeholder="1111 2222 3333 4444">
+                </div>
+                <div class="input-box">
+                    <span>Exp. Month :</span>
+                    <input type="text" placeholder="August">
+                </div>
+
+                <div class="flex">
+                    <div class="input-box">
+                        <span>Exp. Year :</span>
+                        <input type="number" placeholder="2025">
+                    </div>
+                    <div class="input-box">
+                        <span>CVV :</span>
+                        <input type="number" placeholder="123">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn">Submit</button>
+    </form>
+</div>
+
+</div>
+
+
+
+            </div>
+        </div><!-- end card -->
+    </div><!-- end col -->
+
+   
+</div>
+</div>
+
+
